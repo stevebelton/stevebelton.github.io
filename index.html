@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 ﻿
+=======
+>>>>>>> 88df745a7d26bfe77ea94b9a6850b76222f14101
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,6 +67,7 @@ you can do most of this in the portal too.
         <div class="container-narrow">
           <a class="brand" href="/">Hmmmm....</a>
           <ul class="nav">
+<<<<<<< HEAD
             
             
             
@@ -105,6 +109,10 @@ you can do most of this in the portal too.
 
 
 
+=======
+      	<li><a href="/archive.html">Archive</a></li>
+      	<li><a href="/tags.html">Tags</a></li>
+>>>>>>> 88df745a7d26bfe77ea94b9a6850b76222f14101
             <li><a href="/rss.xml">RSS</a></li>
           </ul>
 
@@ -148,6 +156,7 @@ you can do most of this in the portal too.</p>
 (<code>sudo npm update azure-cli</code>) and skip forward to the next section. If
 you don’t yet have the CLI then install node and then run the
 following commands.</p>
+<<<<<<< HEAD
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install -g azure-cli</code></pre></div>
 
@@ -515,17 +524,175 @@ sudo mount -t cifs //acstestfiles.file.core.windows.net/acstestshare /mnt/azure/
 
       </div>
 
+=======
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install -g azure-cli</code></pre></div>
+
+<h1 id="login-to-azure">Login to Azure</h1>
+
+<p>We’ll be using the Azure Resource Manager to create and manage our
+Files Service, so we need to set the mode and login to Azure:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">azure config mode arm
+azure login</code></pre></div>
+
+<h1 id="create-a-storage-account">Create a Storage Account</h1>
+
+<p>If you don’t already have a resource group and storage account you
+will need to create them:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">azure group create -l <span class="s2">&quot;Japan East&quot;</span> acstestfiles
+info:    Executing <span class="nb">command </span>group create
++ Getting resource group acsdummy
++ Creating resource group acsdummy
+info:    Created resource group acsdummy
+data:    Id:                  /subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/acsdummy
+data:    Name:                acsdummy
+data:    Location:            japaneast
+data:    Provisioning State:  Succeeded
+data:    Tags: null
+data:
+info:    group create <span class="nb">command </span>OK
+
+azure storage account create --type LRS -l <span class="s2">&quot;Japan East&quot;</span> -g acstestfiles acstestfiles
+info:    Executing <span class="nb">command </span>storage account create
++ Creating storage account
+info:    storage account create <span class="nb">command </span>OK</code></pre></div>
+
+<h1 id="create-a-file-share">Create a File Share</h1>
+
+<p>Now that we have a Storage Account we will create a fileshare within it:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">azure storage account keys list acstestfiles
+info:    Executing <span class="nb">command </span>storage account keys list
+Resource group name: acstestfiles
++ Getting storage account keys
+data:    Primary: JwFtVAcgbnHvJsk2d/isLsCuqkKJmah+25MdSiS7x2+6YV//A8HyHGktahmr9/uEPfkG9Zkcad8GgZi2Fqw6og<span class="o">==</span>
+data:    Secondary: 965FQ1p8SioeCq8GJ90ax6BYtnfeWPWDHmr5YLqH20WbbR800D/ym/29DhbK5WQqVsYNcVzBoFGhQRU2JQcbJA<span class="o">==</span>
+info:    storage account keys list <span class="nb">command </span>OK
+<span class="nv">$ </span>azure storage share create -a acstestfiles -k JwFtVAcgbnHvJsk2d/isLsCuqkKJmah+25MdSiS7x2+6YV//A8HyHGktahmr9/uEPfkG9Zkcad8GgZi2Fqw6og<span class="o">==</span> acstestshare
+info:    Executing <span class="nb">command </span>storage share create
++ Creating storage file share acstestshare
++ Getting Storage share information
+data:    <span class="o">{</span>
+data:        name: <span class="s1">&#39;acstestshare&#39;</span>,
+data:        metadata: <span class="o">{}</span>,
+data:        etag: <span class="s1">&#39;&quot;0x8D31FB91EB2E415&quot;&#39;</span>,
+data:        lastModified: <span class="s1">&#39;Mon, 18 Jan 2016 03:40:33 GMT&#39;</span>,
+data:        requestId: <span class="s1">&#39;66bacd33-001a-0001-28a1-511866000000&#39;</span>,
+data:        quota: <span class="s1">&#39;5120&#39;</span>,
+data:        shareUsage: <span class="s1">&#39;0&#39;</span>
+data:    <span class="o">}</span>
+info:    storage share create <span class="nb">command </span>OK</code></pre></div>
+
+<h1 id="mount-the-share-on-a-linux-vm">Mount the Share on a Linux VM</h1>
+
+<p>The endpoint of your Files Service is structured as
+https://[ACCOUNT_NAME].file.core.windows.net/. If in doubt you can
+retrieve it using the CLI as follows:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>azure storage account show acstestfiles
+info:    Executing <span class="nb">command </span>storage account show
+Resource group name: acstestfiles
++ Getting storage account
+data:    Name: acstestfiles
+data:    Url: /subscriptions/325e7c34-99fb-4190-aa87-1df746c67705/resourceGroups/acstestfiles/providers/Microsoft.Storage/storageAccounts/acstestfiles
+data:    Type: Standard_LRS
+data:    Resource Group: acstestfiles
+data:    Location: japaneast
+data:    Provisioning State: Succeeded
+data:    Primary Location: japaneast
+data:    Primary Status: available
+data:    Secondary Location:
+data:    Creation Time: 2016-01-15T18:54:14.7993195Z
+data:    Primary Endpoints: blob https://acstestfiles.blob.core.windows.net/
+data:    Primary Endpoints: queue https://acstestfiles.queue.core.windows.net/
+data:    Primary Endpoints: table https://acstestfiles.table.core.windows.net/
+data:    Primary Endpoints: file https://acstestfiles.file.core.windows.net/
+info:    storage account show <span class="nb">command </span>OK</code></pre></div>
+
+<p>Once you are sure of your File Service endpoint you can mount it on
+your Linux Virtual Machine (note the VM needs to be in the same region
+as the storage account).:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install cifs-utils
+sudo mkdir -p /mnt/azure/acstests
+sudo mount -t cifs //acstestfiles.file.core.windows.net/acstestshare /mnt/azure/acstests -o <span class="nv">vers</span><span class="o">=</span>2.1,username<span class="o">=</span>acstestfiles,password<span class="o">=</span>JwFtVAcgbnHvJsk2d/isLsCuqkKJmah+25MdSiS7x2+6YV//A8HyHGktahmr9/uEPfkG9Zkcad8GgZi2Fqw6og<span class="o">==</span></code></pre></div>
+
+<h1 id="test-its-working">Test it’s working</h1>
+
+<p>Now create a file in <code>/mnt/azure/acstests</code> and then look to see that it exists from another machine. You can use the portal, another VM on which you have mounted the share or you can use the following commands:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">azure storage file list -a acstestfiles -k JwFtVAcgbnHvJsk2d/isLsCuqkKJmah+25MdSiS7x2+6YV//A8HyHGktahmr9/uEPfkG9Zkcad8GgZi2Fqw6og<span class="o">==</span> acstestshare</code></pre></div>
+
+<h1 id="further-reading">Further Reading</h1>
+
+<p>To learn more about Managing Storage Accounts with the Azure CLI see <a href="https://azure.microsoft.com/en-us/documentation/articles/storage-azure-cli/#create-and-manage-file-shares">Using the Azure CLI with Azure Storage</a></p>
+
+
+      <div class="actions">
+        <a href="https://github.com/rgardler/rgardler.github.io/edit/master/_posts/2016-01-17-sharing_files_between_linux_vms_on_azure.md">Edit this page</a>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2015/09/13/searcing_for_a_cure_for__cancer_with_docker_and_azure" title="Searching for a Cure for Cancer with Docker and Azure">&larr; Previous</a></li>
+      
+      
+        <li class="next disabled"><a>Next &rarr;</a>
+      
+      </ul>
+    </div>
+    <div> 
+    <h3>Related Posts</h3>
+
+    <ul>
+              <li><a href="/2015/09/13/searcing_for_a_cure_for__cancer_with_docker_and_azure">Searching for a Cure for Cancer with Docker and Azure</a><br /></li>
+              <li><a href="/2015/08/28/simple-swarm-cluster-with-arm">Create a Simple Swarm Cluster on Azure with ARM</a><br /></li>
+              <li><a href="/2015/08/23/getting_started_with_docker_swarm">Getting Started With Docker Swarm on Azure</a><br /></li>
+              <li><a href="/2015/07/24/install-cross-platform-azure-cli">Install the Cross Platform Azure CLI</a><br /></li>
+              <li><a href="/2015/07/22/using-docker-machine-on-azure">Using Docker Machine to create a Docker Host on Azure</a><br /></li>
+    </ul>
+
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+    	<li><a href="/tags.html#azure-ref">azure <span>6</span></a></li>
+    	<li><a href="/tags.html#linux-ref">linux <span>1</span></a></li>
+    </ul>
+    </div>  
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'rgardler'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</div>
+</div>
+>>>>>>> 88df745a7d26bfe77ea94b9a6850b76222f14101
       <footer>
         <p>Unless otherwise stated all content on this site is licensed under the <a href="https://github.com/rgardler/rgardler.github.io/blob/master/LICENSE">MIT</a> license. &copy; 2016 Ross Gardler.</p>
       </footer>
 
     </div>
+<<<<<<< HEAD
 
     
 
 
 
 
+=======
+>>>>>>> 88df745a7d26bfe77ea94b9a6850b76222f14101
   <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-67529572-1']);
@@ -537,10 +704,13 @@ sudo mount -t cifs //acstestfiles.file.core.windows.net/acstestshare /mnt/azure/
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 88df745a7d26bfe77ea94b9a6850b76222f14101
   </body>
 </html>
 
