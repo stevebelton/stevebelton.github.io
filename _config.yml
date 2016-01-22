@@ -1,2 +1,3 @@
 name: Steve Belton
 markdown: kramdown
+permalink: /blog/:year/:month/:day/:title
