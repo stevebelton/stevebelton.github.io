@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Steve Belton
+title: Steve Belton's
 tagline: Blog
 ---
 {% include JB/setup %}
@@ -10,5 +10,3 @@ tagline: Blog
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
 </ul>
-
-
