@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Steve Belton, Hello!"
+title: "Steve Belton, New Blog!"
 date: 2016-03-18
 ---
 
