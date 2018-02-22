@@ -2,7 +2,7 @@ title: PowerShell Steve
 description: Ramblings of an Azure Solutions Architect...
 google_analytics: 
 show_downloads: true
-theme: jekyll-theme-hacker
+theme: jekyll-theme-slate
 
 gems:
   - jekyll-mentions
