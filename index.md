@@ -1,3 +1,4 @@
+
 ## <a name="minikube"></a>Running Minikube
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
 
@@ -67,6 +68,8 @@ We can now delete the service and deployment to clean up Minikube.
 kubectl delete services hello-minikube
 kubectl delete deployment hello-minikube
 ```
+
+
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
 
