@@ -97,6 +97,9 @@ cd $HOME/work/src/github.com/<your github username>/hello
 go run ./hello.go
 ```
 You should see the *hello, world* output.
+
+![helloworld](/helloworld.png)
+
 Next post I will look at Containerizing a Go application.
 
 
