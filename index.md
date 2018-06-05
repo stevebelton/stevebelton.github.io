@@ -103,3 +103,5 @@ Once this is up and running I recommend you stop minikube with:
 minikube stop
 ```
 Then, open up Virtualbox and find the minikube VM. Change it's video memory from 8GB to 16GB so that you get rid of the alert that Virtualbox will continue to generate.
+
+![virtualbox Memory](/virtualbox.png)
