@@ -4,6 +4,8 @@
 * [Running Minikube](#minikube)
 * [Goodbye Windows, Hello Ubuntu](#goodbye)
 
+*Start from the bottom up if you're new here :-)*
+
 ## <a name="containergo"></a>Containerizing a Go app
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
 
