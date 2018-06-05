@@ -5,7 +5,7 @@ My day to day job doesn't rely on anything that I can't run outside of Windows, 
 
 Working with [Microsoft Azure](https://azure.microsoft.com) means I get to spend a lot of time interfacing with it either via a CLI or programatically via REST APIs, ARM Templates or Go/C#/Python. I'm going to go through the steps I did to configure my fresh **Ubuntu 18.04** installation.
 
-### Install Azure CLI
+### Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
 Obviously, my main tool of choice get's installed first!
 
 First off we need to add the Azure CLI Repo to our list of sources
@@ -30,7 +30,7 @@ Whilst we're doing the Azure CLI we might as well install the Kubernetes CLI, **
 az aks install-cli
 ```
 
-### Install Docker
+### Install [Docker](https://www.docker.com/)
 Next up, Docker. 
 Since I am using Ubuntu 18.04 it is super simple to install now.
 ```
@@ -46,7 +46,7 @@ Last thing is to add our current user to the *docker* group so that we can run d
 sudo usermod -aG docker $USER
 ```
 
-### Install Git
+### Install [Git](https://git-scm.com/)
 Absolutely need this installed! With Microsoft's commitment to OSS and with most of our tools in GitHub, this is a must have tool.
 
 > our recent purchase of GitHub makes this even more so!
@@ -55,7 +55,7 @@ Absolutely need this installed! With Microsoft's commitment to OSS and with most
 sudo apt-get install git
 ```
 
-### Install Visual Studio Code
+### Install [Visual Studio Code](https://code.visualstudio.com/)
 Finally, a decent IDE - I always loved Visual Studio but it was too bloated - I never thought I would be using one based off Javascript though. Time to install it!
 ```
 curl -O https://go.microsoft.com/fwlink/?LinkID=760868
@@ -76,7 +76,7 @@ Before we can install Minikube we need somewhere for it to run, I have chosen to
 
 I will create a separate blog post on configuring Visual Studio Code as there's a lot do there.
 
-### Install Virtualbox
+### Install [Virtualbox](https://www.virtualbox.org/)
 Virtualbox is super easy to install.
 ```
 sudo apt-get install virtualbox
@@ -87,7 +87,7 @@ sudo apt install virtualbox-ext-pack
 ```
 When I ran Virtualbox for the first time it asked me to upgrade the extension pack, but it will do that through the UI and guide you through it.
 
-### Install Minikube
+### Install [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/)
 First off we need to download Minikube.
 
 ```
