@@ -34,7 +34,7 @@ Next week need to create some working folders:
 mkdir $HOME/work
 mkdir -p $HOME/work/src/github.com/<your github username>
 ```
-Obviously replacing *<your github username>* with your real GitHub username. This makes working with Import statements easier later.
+Obviously replacing \<your github username\> with your real GitHub username. This makes working with Import statements easier later.
         
 That should be it ! We can now test Go works but creating a *Hello World* application and running that. Copy the following code into $HOME/work/src/github.com/<your github username>/hello/hello.go folder/file.
 
