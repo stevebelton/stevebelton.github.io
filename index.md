@@ -7,7 +7,7 @@
 
 *Start from the bottom up if you're new here :-)*
 
-## <a name="deployminikube"></a>Deploying Containerized Go ap to Minikube
+## <a name="deployminikube"></a>Deploying Containerized Go app to Minikube
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment.
 
 First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to minikube-vm.
