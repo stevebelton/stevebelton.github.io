@@ -19,7 +19,7 @@ Run the following commands.
 kubectl run bookapp --image=bookapp:v1 --port=8000
 kubectl expose deployment bookapp --type=LoadBalancer
 ```
-These two commands will deploy the bookapp container to Minikube and then expose the deployment to the local machine - see my [previous post](#minikube) for more detail.
+These two commands will deploy the bookapp container to Minikube and then expose the deployment to the local machine - see my [previous post](#minikube) for more detail. If the first command fails with an error finding the Docker image, it is likely you did not run the *eval $(minikube docker-env)* command before creating it. You will need to re-create the Docker image after running this command.
 
 To bring the website up in the local browser, simply run:
 ```
