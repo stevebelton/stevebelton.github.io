@@ -1,3 +1,60 @@
+## Posts
+
+## <a name="golang"></a>Getting start with Go
+So far I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
+
+### Install Golang
+First of we need to download and configure Go to work in Ubuntu.
+
+```
+curl -O https://dl.google.com/go/go1.10.2.linux-amd.tar.gz
+```
+This will download Go for us and it's pretty simple to install - so long as we configure our path variables everything should work first time around.
+
+```
+sudo tar -xvf ./go1.10.2.linux-amd64.tar.gz
+sudo mv ./go /usr/local
+```
+The above will extract the Golang folder structure and then move the entire top level folder to /usr/local where we will then reference it by updating our PATH environment variable.
+```
+sudo nano ~/.profile
+```
+Add the following to the end of the file:
+```
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/work
+```
+This assumes you would like a working directory for your Go applications to be in the *work* folder in your home directory.
+Save this file and run the following to reload:
+```
+source ~/.profile
+```
+Next week need to create some working folders:
+```
+mkdir $HOME/work
+mkdir -p $HOME/work/src/github.com/<your github username>
+```
+Obviously replacing *<your github username>* with your real GitHub username. This makes working with Import statements easier later.
+        
+That should be it ! We can now test Go works but creating a *Hello World* application and running that. Copy the following code into $HOME/work/src/github.com/<your github username>/hello/hello.go folder/file.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Printf("hello, world\n")
+}
+```
+Once you have saved this file you can run it with:
+```
+cd $HOME/work/src/github.com/<your github username>/hello
+go run ./hello.go
+```
+You should see the *hello, world* output.
+Next post I will look at Containerizing a Go application.
+
 
 ## <a name="minikube"></a>Running Minikube
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
