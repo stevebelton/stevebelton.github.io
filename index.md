@@ -1,10 +1,31 @@
 ## Posts
+* [Deploying Containerized Go app to Minikube](#deployminikube)
 * [Containerizing a Go app](#containergo)
 * [Getting started with Go](#golang)
 * [Running Minikube](#minikube)
 * [Goodbye Windows, Hello Ubuntu](#goodbye)
 
 *Start from the bottom up if you're new here :-)*
+
+## <a name="deployminikube"></a>Deploying Containerized Go ap to Minikube
+In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment.
+
+First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to minikube-vm.
+```
+minikube status
+```
+Run the following commands.
+```
+kubectl run bookapp --image=bookapp:v1 --port=8000
+kubectl expose deployment bookapp --type=LoadBalancer
+```
+These two commands will deploy the bookapp container to Minikube and then expose the deployment to the local machine - see my [previous post](#minikube) for more detail.
+
+To bring the website up in the local browser, simply run:
+```
+minikube service bookapp
+```
+You will know see something similar to the image below.
 
 ## <a name="containergo"></a>Containerizing a Go app
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
@@ -32,13 +53,17 @@ CMD ["/app/main"]
 ```
 This will use the *golang:latest* container image from DockerHub and copy our sample Book API application into the app directory. It will also install the Gorilla Mux router and build the application ready for running on container start.
 
-Now we can build out new container with Docker and give it a test locally!
+Now we can build out new container with Docker and give it a test locally! **This is where we need to choose our Docker environment first. If you plan on following my [next post](#deployminikube) where we deploy this container to Minikube, you need to run the step below. If not, skip this step and proceed to the Docker Build command.**
 ```
-docker build -t bookapp -f Dockerfile .
+eval $(minikube docker-env)
+```
+Running this command will expose the container to the Minikube local Docker registry.
+```
+docker build -t bookapp:v1 -f Dockerfile .
 ```
 Once the Docker image has been built we can run it with:
 ```
-docker run -p 8000:8000 bookapp
+docker run -p 8000:8000 bookapp:v1
 ```
 This will expose port 8000 to our local machine so you can then test the application by browsing to http://localhost:8000/books as before, only this time the page will be served from our new container!
 
