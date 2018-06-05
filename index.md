@@ -31,8 +31,37 @@ This will automatically create a Kubernetes service and expose the port. Running
 kubectl expose deployment hello-minikube --type=NodePort
 ```
 Note the hello-minikube service.
+Running the following will query the new service and show the output from the application:
+```
+curl $(minikube service hello-minikube --url)
+```
+The result should look something similar to:
+```
+Hostname: hello-minikube-7c77b68cff-dn7pf
 
+Pod Information:
+        -no pod information available-
 
+Server values:
+        server_version=nginx: 1.13.3 - lua: 10008
+
+Request Information:
+        client_address=172.17.0.1
+        method=GET
+        real path=/
+        query=
+        request_version=1.1
+        request_scheme=http
+        request_uri=http://192.168.99.100:8080/
+
+Request Headers:
+        accept=*/*
+        host=192.168.99.100:32732
+        user-agent=curl/7.58.0
+
+Request Body:
+        -no body in request-
+```
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
 
