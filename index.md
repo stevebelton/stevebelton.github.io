@@ -1,7 +1,44 @@
 ## Posts
+* [Containerizing a Go app](#containergo)
 * [Getting started with Go](#golang)
 * [Running Minikube](#minikube)
 * [Goodbye Windows, Hello Ubuntu](#goodbye)
+
+## <a name="containergo"></a>Containerizing a Go app
+What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
+
+First off, we need to clone the sample repository:
+```
+git clone https://github.com/bradtraversy/go_restapi
+```
+You can run and test this locally with:
+```
+go get github.com/gorilla/mux
+go run main.go
+```
+This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browser to http://localhost:8000/api/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
+
+In order to run this application in Docker, we need to create a Docker file in the same directory with the following contents:
+```
+FROM golang:latest
+RUN mkdir /app
+ADD . /app/
+WORKDIR /app
+RUN go get github.com/gorilla/mux
+RUN go build -o main .
+CMD ["/app/main"]
+```
+This will use the *golang:latest* container image from DockerHub and copy our sample Book API application into the app directory. It will also install the Gorilla Mux router and build the application ready for running on container start.
+
+Now we can build out new container with Docker and give it a test locally!
+```
+docker build -t bookapp -f Dockerfile .
+```
+Once the Docker image has been built we can run it with:
+```
+docker run -p 8000:8000 bookapp
+```
+This will expose port 8080 to our local machine so you can then test the application by browsing to http://localhost:8000/api/books as before, only this time the page will be served from our new container!
 
 ## <a name="golang"></a>Getting started with Go
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
