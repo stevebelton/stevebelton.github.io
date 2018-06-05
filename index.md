@@ -1,6 +1,9 @@
 ## Posts
+* [Getting started with Go](#golang)
+* [Running Minikube](#minikube)
+* [Goodbye Windows, Hello Ubuntu](#goodbye)
 
-## <a name="golang"></a>Getting start with Go
+## <a name="golang"></a>Getting started with Go
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
 ### Install Golang
