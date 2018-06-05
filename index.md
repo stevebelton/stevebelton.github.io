@@ -71,6 +71,8 @@ Now we get to the fun stuff. *Minikube* for testing Kubernetes deployments local
 
 Before we can install Minikube we need somewhere for it to run, I have chosen to use Oracle Virtualbox as it's easy to use and simple to install. Lets go install that first.
 
+I will create a separate blog post on configuring Visual Studio Code as there's a lot do there.
+
 ### Install Virtualbox
 Virtualbox is super easy to install.
 ```
