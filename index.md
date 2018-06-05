@@ -1,7 +1,7 @@
 ## Posts
 
 ## <a name="golang"></a>Getting start with Go
-So far I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
+So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
 ### Install Golang
 First of we need to download and configure Go to work in Ubuntu.
