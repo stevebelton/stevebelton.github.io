@@ -47,7 +47,10 @@ sudo usermod -aG docker $USER
 ```
 
 ### Install Git
-Absolutely need this installed! With Microsoft's commitment to OSS, most of our tools in GitHub and our recent purchase of GitHub this is a must have tool :-)
+Absolutely need this installed! With Microsoft's commitment to OSS and with most of our tools in GitHub, this is a must have tool.
+
+> our recent purchase of GitHub makes this even more so!
+
 ```
 sudo apt-get install git
 ```
