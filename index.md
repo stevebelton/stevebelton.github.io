@@ -18,7 +18,7 @@ You can run and test this locally with:
 go get github.com/gorilla/mux
 go run main.go
 ```
-This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browser to http://localhost:8000/api/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
+This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browser to http://localhost:8000/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
 
 In order to run this application in Docker, we need to create a Docker file in the same directory with the following contents:
 ```
@@ -40,7 +40,7 @@ Once the Docker image has been built we can run it with:
 ```
 docker run -p 8000:8000 bookapp
 ```
-This will expose port 8000 to our local machine so you can then test the application by browsing to http://localhost:8000/api/books as before, only this time the page will be served from our new container!
+This will expose port 8000 to our local machine so you can then test the application by browsing to http://localhost:8000/books as before, only this time the page will be served from our new container!
 
 ## <a name="golang"></a>Getting started with Go
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
