@@ -13,7 +13,7 @@ minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
 ```
-First let's start the deployment (this is taken from the [Kubernetes site](https://kubernetes.io/docs/getting-started-guides/minikube/) for reference:
+First let's start the deployment (this is taken from the [Kubernetes site](https://kubernetes.io/docs/getting-started-guides/minikube/) for reference):
 ```
 kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 ```
