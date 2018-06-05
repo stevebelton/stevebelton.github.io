@@ -1,6 +1,38 @@
 ## <a name="minikube"></a>Running Minikube
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
 
+Now we have Minikube working we can deploy a sample application to test it. First we need to make sure Minikube is running with:
+
+```
+minikube status
+```
+Assuming we get something like the below, we're good to go:
+
+```
+minikube: Running
+cluster: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
+```
+First let's start the deployment (this is taken from the [Kubernetes site](https://kubernetes.io/docs/getting-started-guides/minikube/) for reference:
+```
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+```
+This will download the sample echoserver node.js application and start a new Kubernetes deployment.
+You can see the deployment running by entering:
+```
+kubectl get deployment
+```
+Then we need to expose port 8080 to our host system so we can see the website running. With Minikube this is super easy, completed with just one command:
+```
+kubectl expose deployment hello-minikube --type=NodePort
+```
+This will automatically create a Kubernetes service and expose the port. Running *kubectl get services* will show you something similar to the below:
+```
+kubectl expose deployment hello-minikube --type=NodePort
+```
+Note the hello-minikube service.
+
+
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
 
