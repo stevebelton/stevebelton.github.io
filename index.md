@@ -42,6 +42,8 @@ docker run -p 8000:8000 bookapp
 ```
 This will expose port 8000 to our local machine so you can then test the application by browsing to http://localhost:8000/books as before, only this time the page will be served from our new container!
 
+![container](/localmachine.png)
+
 ## <a name="golang"></a>Getting started with Go
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
