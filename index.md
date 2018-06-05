@@ -25,7 +25,9 @@ To bring the website up in the local browser, simply run:
 ```
 minikube service bookapp
 ```
-You will know see something similar to the image below.
+You will know see something similar to the image below. Notice how the URL is different to the Docker based URL, with a Kubernetes/Minikube exposed IP address and port.
+
+![minikube deployment](/minikubedeploy.png)
 
 ## <a name="containergo"></a>Containerizing a Go app
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
