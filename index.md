@@ -28,7 +28,7 @@ kubectl expose deployment hello-minikube --type=NodePort
 ```
 This will automatically create a Kubernetes service and expose the port. Running *kubectl get services* will show you something similar to the below:
 ```
-kubectl expose deployment hello-minikube --type=NodePort
+hello-minikube   NodePort       10.100.74.0     <none>        8080:32732/TCP   16s
 ```
 Note the hello-minikube service.
 Running the following will query the new service and show the output from the application:
