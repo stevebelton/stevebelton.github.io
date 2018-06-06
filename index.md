@@ -1,4 +1,5 @@
 ## Posts
+* [Configuring Azure Container Registry](#acr)
 * [Deploying Containerized Go app to Minikube](#deployminikube)
 * [Containerizing a Go app](#containergo)
 * [Getting started with Go](#golang)
