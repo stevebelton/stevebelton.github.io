@@ -9,6 +9,7 @@
 
 *Start from the bottom up if you're new here :-)*
 
+***
 ## <a name="acr"></a>Configuring Azure Container Registry
 In my next post we will look to deploy the Containerized Go app into Azure Kubernetes Service (AKS). Before we can do that we need to create an Azure Container Registry to store our Docker image of the Book API application.
 
@@ -86,6 +87,7 @@ v1: digest: sha256:dfd4cb81c5e09166904b1bade3a08524cbfab444ce136769bfdb20152923a
 ```
 Next post we will deploy this new ACR based container image into AKS!
 
+***
 
 ## <a name="deployminikube"></a>Deploying Containerized Go app to Minikube
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment. You will see how easy this is an why so many people use Minikube for their local Kubernetes testing.
@@ -154,6 +156,8 @@ This will expose port 8000 to our local machine so you can then test the applica
 ## <a name="golang"></a>Getting started with Go
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
+***
+
 ### Install Golang
 First of we need to download and configure Go to work in Ubuntu.
 
@@ -209,6 +213,7 @@ You should see the *hello, world* output.
 
 Next post I will look at Containerizing a Go application.
 
+***
 
 ## <a name="minikube"></a>Running Minikube
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
@@ -280,6 +285,7 @@ $ kubectl delete services hello-minikube
 $ kubectl delete deployment hello-minikube
 ```
 
+***
 
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
