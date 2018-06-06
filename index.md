@@ -41,9 +41,11 @@ Once the cluster is created, we can see our single node.
 First we need to get the primary password for our Azure Container Registry. We can do this via the Portal by navifating to the Access Keys section of ACR or we can do it with the Azure CLI.
 
 ### Get ACR password
+Either using the Azure CLI:
 ```
 $ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"
 ```
+Or from the Azure Portal:
 ![acr-password](/acr-password.png)
 
 ### Create Kubernetes Secret
