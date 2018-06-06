@@ -59,11 +59,11 @@ Now we need to login to our Azure Container Registry. This is equivalent to logg
 ```
 $ az acr login --name mytestacr001 --resource-group test-group
 ```
-At the moment our bookapp:v1 Docker image is tagged as just a local Docker image, there is no prefix. In order to deploy our image into ACR we need to tag it with our new ACR login server name as a prefix:
+At the moment our bookapp:v1 Docker image is tagged as just a local Docker image, there is no prefix. In order to deploy our image into ACR we need to [tag it](https://docs.docker.com/engine/reference/commandline/tag/) with our new ACR login server name as a prefix:
 ```
 $ docker tag bookapp:v1 mytestacr001.azurecr.io/bookapp:v1
 ```
-With that done we can now push our image up to our new Azure Container Registry:
+With that done we can now [push](https://docs.docker.com/engine/reference/commandline/push/) our image up to our new Azure Container Registry:
 ```
 $ docker push mytestacr001.azurecr.io/bookapp:v1
 ```
