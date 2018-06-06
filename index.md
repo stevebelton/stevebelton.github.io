@@ -34,7 +34,7 @@ $ az aks get-credentials --resource-group test-group --name myAKSCluster
 This will merge the new cluster's context into the local .kube/config file, allowing us to run kubectl commands against it.
 ### Query the AKS Cluster nodes
 ```
-kubectl get nodes
+$ kubectl get nodes
 ```
 Once the cluster is created, we can see our single node.
 ### Create Kubernetes Secret
@@ -117,9 +117,9 @@ Events:
   Normal  EnsuringLoadBalancer  3m    service-controller  Ensuring load balancer
   Normal  EnsuredLoadBalancer   18s   service-controller  Ensured load balancer
 ```
-![aks-deploy](/aks-deploy.png)
+Browse to the LoadBalancer Ingress IP shown in the output above, appending port 8000/books and you should see our Go application once more, running inside of AKS.
 
-We're now done with deploying our Go application to AKS!
+![aks-deploy](/aks-deploy.png)
 
 ***
 
