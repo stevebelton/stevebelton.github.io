@@ -1,5 +1,6 @@
 ## Contents
 
+* [Deploying Containerized Go app to AKS](#aks)
 * [Configuring Azure Container Registry](#acr)
 * [Deploying Containerized Go app to Minikube](#deployminikube)
 * [Containerizing a Go app](#containergo)
@@ -10,6 +11,82 @@
 *Start from the bottom up if you're new here :-)*
 
 ***
+## <a name="aks"></a>Deploying Containerized Go app to AKS
+> *June 6, 2018
+
+Deploying the Go book app to AKS will conclude the journey from it running on a local PC, to running in a Docker container, to running in a local Minikube cluster to running in Azure AKS!
+This part of the series takes the longest to setup due to the deployment of the Kubernetes cluster (AKS) in Azure.
+### Register AKS Resource Provider
+```
+$ az provider register -n Microsoft.ContainerService
+```
+This will register the ARM Provider for Container Services, if not already registered in your subscription.
+### Create a single node AKS Cluster
+```
+$ az aks create --resource-group test-group --name myAKSCluster --node-count 1 --generate-ssh-keys
+```
+This command will create the new AKS cluster in Azure with a single node, generating the SSH keys required to connect at a later stage via SSH, merging them into any existing keys.
+This command can take up to 30mins to run, be patient!
+### Get access credentials
+```
+$ az aks get-credentials --resource-group test-group --name myAKSCluster
+```
+This will merge the new cluster's context into the local .kube/config file, allowing us to run kubectl commands against it.
+### Query the AKS Cluster nodes
+```
+kubectl get nodes
+```
+Once the cluster is created, we can see our single node.
+### Create Kubernetes Secret
+First we need to get the primary password for our Azure Container Registry. We can do this via the Portal by navifating to the Access Keys section of ACR or we can do it with the Azure CLI.
+
+### Get ACR password
+```
+$ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"
+```
+![acr-password](/acr-password.png)
+```
+$ kubectl create secret docker-registry mytestacrsecret --docker-server=mytestacr001.azurecr.io --docker-username=mytestacr001--docker-password=xxxxxxxxxxxxxxxxxxxxxxxxxxx --docker-email=me@myemail.com
+```
+### Create the Kubernetes deployment YAML file
+```YAML
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bookapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bookapp
+    spec:
+      containers:
+      - name: bookapp
+        image: mytestacr001.azurecr.io/bookapp:v1
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: mytestacrsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookappsvc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: bookapp
+```
+### Deploy the Book application to AKS
+```
+$ kubectl create -f ./bookapp.yaml
+```
+
+***
+
 ## <a name="acr"></a>Configuring Azure Container Registry
 > *June 6, 2018*
 
