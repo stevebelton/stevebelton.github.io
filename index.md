@@ -38,7 +38,7 @@ $ kubectl get nodes
 ```
 Once the cluster is created, we can see our single node.
 ### Create Kubernetes Secret
-First we need to get the primary password for our Azure Container Registry. We can do this via the Portal by navifating to the Access Keys section of ACR or we can do it with the Azure CLI.
+First we need to get the primary password for our Azure Container Registry. We can do this via the Portal by navigating to the Access Keys section of ACR or we can do it with the Azure CLI.
 
 ### Get ACR password
 Either using the Azure CLI:
