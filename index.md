@@ -1,4 +1,4 @@
-## Posts
+## Contents
 
 * [Configuring Azure Container Registry](#acr)
 * [Deploying Containerized Go app to Minikube](#deployminikube)
@@ -11,9 +11,11 @@
 
 ***
 ## <a name="acr"></a>Configuring Azure Container Registry
+> *June 6, 2018*
+
 In my next post we will look to deploy the Containerized Go app into Azure Kubernetes Service (AKS). Before we can do that we need to create an Azure Container Registry to store our Docker image of the Book API application.
 
-We need to start by logging into the Azure CLI:
+#### Login to the Azure CLI
 ```
 $ az login
 ```
@@ -23,13 +25,16 @@ $ az account list
 $ az account set --subscription <subscription ID>
 ```
 Replace the \<subscription ID\> with the *id* field from your chosen subscription.
-Next we need to create a Resource Group to hold our Azure Container Registry:
+Next we need to create a Resource Group to hold our Azure Container Registry.
+
+#### Create a Resource Group
 ```
 $ az group create --name test-group --location eastus
 ```
 I have chosen East US as my region as I will be deploying AKS into the same region. At the time of writing only 5 regions support AKS. You van view the list [here](https://docs.microsoft.com/en-us/azure/aks/container-service-quotas)
 
 Now let's create the ACR resource itself. The ACR name needs to be globally unique as it is assigned to an FQDN.
+#### Create Azure Container Registry
 ```
 $ az acr create --name mytestacr001 --resource-group test-group --sku Basic --admin-enabled true
 ```
@@ -57,15 +62,18 @@ You should see output similar to the following:
   }
 ```
 
-Now we need to login to our Azure Container Registry. This is equivalent to logging into Docker Hub and allows us to push our image up to ACR with regular Docker commands:
+Now we need to login to our Azure Container Registry. This is equivalent to logging into Docker Hub and allows us to push our image up to ACR with regular Docker commands.
+#### Login to Azure Container Registry
 ```
 $ az acr login --name mytestacr001 --resource-group test-group
 ```
-At the moment our bookapp:v1 Docker image is tagged as just a local Docker image, there is no prefix. In order to deploy our image into ACR we need to [tag it](https://docs.docker.com/engine/reference/commandline/tag/) with our new ACR login server name as a prefix:
+At the moment our bookapp:v1 Docker image is tagged as just a local Docker image, there is no prefix. In order to deploy our image into ACR we need to [tag it](https://docs.docker.com/engine/reference/commandline/tag/) with our new ACR login server name as a prefix.
+#### Tag our Docker Image
 ```
 $ docker tag bookapp:v1 mytestacr001.azurecr.io/bookapp:v1
 ```
-With that done we can now [push](https://docs.docker.com/engine/reference/commandline/push/) our image up to our new Azure Container Registry:
+With that done we can now [push](https://docs.docker.com/engine/reference/commandline/push/) our image up to our new Azure Container Registry.
+#### Push Docker Image to ACR
 ```
 $ docker push mytestacr001.azurecr.io/bookapp:v1
 ```
@@ -90,6 +98,8 @@ Next post we will deploy this new ACR based container image into AKS!
 ***
 
 ## <a name="deployminikube"></a>Deploying Containerized Go app to Minikube
+> *June 5, 2018*
+
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment. You will see how easy this is an why so many people use Minikube for their local Kubernetes testing.
 
 First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to minikube-vm.
@@ -112,6 +122,8 @@ You will know see something similar to the image below. Notice how the URL is di
 ![minikube deployment](/minikubedeploy.png)
 
 ## <a name="containergo"></a>Containerizing a Go app
+> *June 3, 2018*
+
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
 
 First off, we need to clone the sample repository:
@@ -154,6 +166,8 @@ This will expose port 8000 to our local machine so you can then test the applica
 ![container](/localmachine.png)
 
 ## <a name="golang"></a>Getting started with Go
+> *June 1, 2018*
+
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
 ***
@@ -216,6 +230,8 @@ Next post I will look at Containerizing a Go application.
 ***
 
 ## <a name="minikube"></a>Running Minikube
+> *May 29, 2018*
+
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
 
 Now we have Minikube working we can deploy a sample application to test it. First we need to make sure Minikube is running with:
@@ -288,6 +304,8 @@ $ kubectl delete deployment hello-minikube
 ***
 
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
+> *May 25, 2018*
+
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
 
 My day to day job doesn't rely on anything that I can't run outside of Windows, with one exception... Skype for Business. Until that changes, my laptop will remain a Windows based operating system. For now :-)
