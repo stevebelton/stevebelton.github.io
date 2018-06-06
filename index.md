@@ -45,9 +45,16 @@ First we need to get the primary password for our Azure Container Registry. We c
 $ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"
 ```
 ![acr-password](/acr-password.png)
+
+### Create Kubernetes Secret
+We need to store our Docker / ACR Credentials in an encrypted key within Kubernetes. This allows Kubernetes to access our Azure Container Registry and pull the image. This step is not required for a typical Production deployment as an Azure Service Principal would normally be used as previously mentioned.
 ```
-$ kubectl create secret docker-registry mytestacrsecret --docker-server=mytestacr001.azurecr.io --docker-username=mytestacr001--docker-password=xxxxxxxxxxxxxxxxxxxxxxxxxxx --docker-email=me@myemail.com
+$ kubectl create secret docker-registry mytestacrsecret --docker-server=mytestacr001.azurecr.io --docker-username=mytestacr001 --docker-password=xxxxxxxxxxxxxxxxxxxxxxxxxxx --docker-email=me@myemail.com
 ```
+Replace the *xxxxxxxxxxxxxxxxxxxxxxxxxx* with the password retrieved from AZ or the Portal as well as using your real email address.
+
+We are almost good to go with a deployment now. Final step is to create a deployment YAML file containing the information Kubernetes needs to deploy our application. We will just deploy a single replica for this demonstration, creating a new Kubernetes Service, exposing port 8000 through an external Load Balancer. This will make it visible on the internet.
+
 ### Create the Kubernetes deployment YAML file
 ```YAML
 apiVersion: apps/v1beta1
@@ -84,7 +91,32 @@ spec:
 ```
 $ kubectl create -f ./bookapp.yaml
 ```
-
+You can check on the status of your deployment by running:
+```
+$ kubectl describe service bookappsvc
+```
+Once you see something similar to the output below, you're good to test in your browser.
+```
+Name:                     bookappsvc
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=bookapp
+Type:                     LoadBalancer
+IP:                       10.0.90.131
+LoadBalancer Ingress:     40.114.xx.xxx
+Port:                     <unset>  8000/TCP
+TargetPort:               8000/TCP
+NodePort:                 <unset>  30380/TCP
+Endpoints:                10.244.0.9:8000
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age   From                Message
+  ----    ------                ----  ----                -------
+  Normal  EnsuringLoadBalancer  3m    service-controller  Ensuring load balancer
+  Normal  EnsuredLoadBalancer   18s   service-controller  Ensured load balancer
+```
 ***
 
 ## <a name="acr"></a>Configuring Azure Container Registry
