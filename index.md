@@ -117,6 +117,10 @@ Events:
   Normal  EnsuringLoadBalancer  3m    service-controller  Ensuring load balancer
   Normal  EnsuredLoadBalancer   18s   service-controller  Ensured load balancer
 ```
+![aks-deploy](/aks-deploy.png)
+
+We're now done with deploying our Go application to AKS!
+
 ***
 
 ## <a name="acr"></a>Configuring Azure Container Registry
