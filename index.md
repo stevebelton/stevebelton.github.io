@@ -103,10 +103,11 @@ Next post we will deploy this new ACR based container image into AKS!
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment. You will see how easy this is an why so many people use Minikube for their local Kubernetes testing.
 
 First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to minikube-vm.
+#### Get Minikube status
 ```
 $ minikube status
 ```
-Run the following commands.
+#### Desploy container to Minikube
 ```
 $ kubectl run bookapp --image=bookapp:v1 --port=8000
 $ kubectl expose deployment bookapp --type=LoadBalancer
@@ -128,16 +129,18 @@ You will know see something similar to the image below. Notice how the URL is di
 
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
 
-First off, we need to clone the sample repository:
+First off, we need to download a copy of the application.
+#### Clone GitHub Repository
 ```
 $ git clone https://github.com/bradtraversy/go_restapi
 ```
-You can run and test this locally with:
+You can run and test this locally.
+#### Run the Go application
 ```
 $ go get github.com/gorilla/mux
 $ go run main.go
 ```
-This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browser to http://localhost:8000/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
+This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browse to http://localhost:8000/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
 
 In order to run this application in Docker, we need to create a Docker file in the same directory with the following contents:
 ```
