@@ -124,7 +124,7 @@ You will know see something similar to the image below. Notice how the URL is di
 
 ***
 
-## <a name="containergo"></a>Containerizing a Go app
+## <a name="containergo"></a>Containerizing a Go Application
 > *June 3, 2018*
 
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
@@ -143,7 +143,7 @@ $ go run main.go
 This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browse to http://localhost:8000/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
 
 In order to run this application in Docker, we need to create a Docker file in the same directory with the following contents:
-```
+```JSON
 FROM golang:latest
 RUN mkdir /app
 ADD . /app/
@@ -159,10 +159,11 @@ Now we can build out new container with Docker and give it a test locally! **Thi
 $ eval $(minikube docker-env)
 ```
 Running this command will expose the container to the Minikube local Docker registry.
+#### Build the Docker Image
 ```
 $ docker build -t bookapp:v1 -f Dockerfile .
 ```
-Once the Docker image has been built we can run it with:
+#### Run the Docker Image
 ```
 $ docker run -p 8000:8000 bookapp:v1
 ```
@@ -179,14 +180,14 @@ So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, instal
 
 ***
 
-### Install Golang
+#### Install Golang
 First of we need to download and configure Go to work in Ubuntu.
 
 ```
 $ curl -O https://dl.google.com/go/go1.10.2.linux-amd.tar.gz
 ```
 This will download Go for us and it's pretty simple to install - so long as we configure our path variables everything should work first time around.
-
+#### Extract the archive
 ```
 $ sudo tar -xvf ./go1.10.2.linux-amd64.tar.gz
 $ sudo mv ./go /usr/local
@@ -223,7 +224,8 @@ func main() {
     fmt.Printf("hello, world\n")
 }
 ```
-Once you have saved this file you can run it with:
+Save this file to disk.
+#### Run the Go application
 ```
 $ cd $HOME/work/src/github.com/<your github username>/hello
 $ go run ./hello.go
@@ -241,8 +243,8 @@ Next post I will look at Containerizing a Go application.
 
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
 
-Now we have Minikube working we can deploy a sample application to test it. First we need to make sure Minikube is running with:
-
+Now we have Minikube working we can deploy a sample application to test it. First we need to make sure Minikube is running.
+#### Get Minikube Status
 ```
 $ minikube status
 ```
@@ -253,7 +255,8 @@ minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
 ```
-First let's start the deployment (this is taken from the [Kubernetes site](https://kubernetes.io/docs/getting-started-guides/minikube/) for reference):
+First let's start the deployment (this is taken from the [Kubernetes site](https://kubernetes.io/docs/getting-started-guides/minikube/) for reference).
+#### Deploy sample application to Minikube
 ```
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 ```
