@@ -93,7 +93,6 @@ fbbeadfbd3ca: Pushed
 0f3a12fef684: Pushed
 v1: digest: sha256:dfd4cb81c5e09166904b1bade3a08524cbfab444ce136769bfdb20152923a35a size: 2633
 ```
-Next post we will deploy this new ACR based container image into AKS!
 
 ***
 
