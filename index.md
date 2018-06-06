@@ -89,7 +89,7 @@ spec:
   selector:
     app: bookapp
 ```
-### Deploy the Book application to AKS
+### Deploy the Go book application to AKS
 ```
 $ kubectl create -f ./bookapp.yaml
 ```
