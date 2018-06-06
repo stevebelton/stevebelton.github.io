@@ -55,7 +55,7 @@ $ kubectl create secret docker-registry mytestacrsecret --docker-server=mytestac
 ```
 Replace the *xxxxxxxxxxxxxxxxxxxxxxxxxx* with the password retrieved from AZ or the Portal as well as using your real email address.
 
-We are almost good to go with a deployment now. Final step is to create a deployment YAML file containing the information Kubernetes needs to deploy our application. We will just deploy a single replica for this demonstration, creating a new Kubernetes Service, exposing port 8000 through an external Load Balancer. This will make it visible on the internet.
+We are almost good to go with a deployment now. Final step is to create a deployment YAML file (call it bookapp.yaml) containing the information Kubernetes needs to deploy our application. We will just deploy a single replica for this demonstration, creating a new Kubernetes Service, exposing port 8000 through an external Load Balancer. This will make it visible on the internet.
 
 ### Create the Kubernetes deployment YAML file
 ```YAML
