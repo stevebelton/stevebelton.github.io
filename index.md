@@ -73,7 +73,7 @@ deploy:
     manifests:
       - k8s-*
 ```
-This tells Skaffold to create and use a Docker Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-*. For our sample we are just using a single YAML file.
+This tells Skaffold to create and use a Docker Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-* for our Kubernetes deployment. For our sample we are just using a single YAML file.
 
 Our ~/go_restapi directory should now have the following files:
 ```
