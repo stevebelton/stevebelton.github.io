@@ -140,6 +140,13 @@ Go ahead and make a change to the *main.go* file, change the name of an Author f
 Refresh your browser and look for the change. In my case I chaged the Surname of the first Author from *Doe* to *Summers*.
 ![skaffold-output2](/skaffold-2.png)
 
+Once you are done with testing, hit CTRL-C in the terminal window and this will stop the Skaffold process and clean up Minikube by deleting the *bookapp* service and deployment.
+```
+^CCleaning up...
+deployment.apps "bookapp" deleted
+service "bookappsvc" deleted
+Cleanup complete in 1.688479196s
+```
 ***
 
 ## <a name="aks"></a>Deploying Containerized Go app to [AKS](https://azure.microsoft.com/en-us/services/container-service/)
