@@ -1,5 +1,6 @@
 ## Contents
 
+* [Deploying Containerized Go app via Skaffold](#skaffold)
 * [Deploying Containerized Go app to AKS](#aks)
 * [Configuring Azure Container Registry](#acr)
 * [Deploying Containerized Go app to Minikube](#deployminikube)
@@ -11,8 +12,138 @@
 *Start from the bottom up if you're new here :-)*
 
 ***
-## <a name="aks"></a>Deploying Containerized Go app to AKS
-> *June 6, 2018
+## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
+> *June 2018
+
+You probably wont see the use of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but Skaffold can take your application from GitHub (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a Kubernetes deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your Docker container and re-deploy to Kubernetes in a matter of seconds.
+
+Lets take our Go books application and deploy it to Minikube using Skaffold. Everything here is local to the PC. Skaffold does have a requirement of a Git repository.
+
+In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory all ready in place.
+
+### Create Kubernetes deployment YAML
+Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the imagePullSecrets entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
+```
+cd ~/go_restapi
+$ nano ./k82-deploy.yaml
+```
+Copy and Paste the following into the new file:
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bookapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bookapp
+    spec:
+      containers:
+      - name: bookapp
+        image: bookapp
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookappsvc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: bookapp
+```
+As you can see, it's 98% similar. Next we need to create our skaffold.yaml file in the current directory:
+```
+$ nano ./skaffold.yaml
+```
+Copy and Paste the following into the new file:
+```
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  artifacts:
+  - imageName: bookapp
+deploy:
+  kubectl:
+    manifests:
+      - k8s-*
+```
+This tells Skaffold to create and use a Docker Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-*. For our sample we are just using a single YAML file.
+
+Our ~/go_restapi directory should now have the following files:
+```
+Dockerfile
+k8s-deploy.yaml
+main.go
+README.md
+skaffold.yaml
+```
+Plus the hidden .git directory.
+
+### Set Docker to Minikube context
+We need to run this before we use Skaffold with Minikube, as with previous posts. This will tell Minikube to use the local Minikube docker repository.
+```
+$ eval $(minikube docker-env)
+```
+### Run Skaffold
+```
+$ skaffold dev
+```
+This will start the process of building and deploying your Container image to Minikube and you should see something similar to the following output:
+```
+Starting build...
+Found [minikube] context, using local docker daemon.
+Sending build context to Docker daemon  54.78kB
+Step 1/7 : FROM golang:latest as build
+ ---> 6b369f7eed80
+Step 2/7 : RUN mkdir /app
+ ---> Using cache
+ ---> 5f7fd48e7f4a
+Step 3/7 : ADD . /app/
+ ---> c17de8bf4476
+Step 4/7 : WORKDIR /app
+ ---> 4c213022c368
+Step 5/7 : RUN go get github.com/gorilla/mux
+ ---> Running in 274ffe968e2e
+ ---> 62f709afcfbf
+Step 6/7 : RUN go build -o main .
+ ---> Running in a6e0b0b98234
+ ---> 60f8ff070afb
+Step 7/7 : CMD ["/app/main"]
+ ---> Running in c731ddb7c1a4
+ ---> 351a772bfb55
+Successfully built 351a772bfb55
+Successfully tagged 40a56d52b789bdadd1e5325a44499012:latest
+Successfully tagged bookapp:326a73e-dirty-1fae2ea9f96f7b0f
+Build complete in 4.862327709s
+Starting deploy...
+deployment.apps "bookapp" created
+service "bookappsvc" created
+Deploy complete in 249.136025ms
+Watching for changes...
+```
+Notice the last line *Watching for changes...* - this is where the Continuous Delivery part comes in shortly.
+### Test Minikube deployment
+```
+$ minikube service buildappsvc
+```
+You should see in your browser something similar to the screenshot below:
+![skaffold-output1](/skaffold-1.png)
+
+Go ahead and make a change to the *main.go* file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
+
+Refresh your browser and look for the change. In my case I chaged the Surname of the first Author from Smith to Summers.
+![skaffold-output2](/skaffold-2.png)
+
+***
+
+## <a name="aks"></a>Deploying Containerized Go app to [AKS](https://azure.microsoft.com/en-us/services/container-service/)
+> *June 2018
 
 Deploying the Go book app to AKS will conclude the journey from it running on a local PC, to running in a Docker container, to running in a local Minikube cluster to running in Azure AKS!
 This part of the series takes the longest to setup due to the deployment of the Kubernetes cluster (AKS) in Azure.
@@ -126,7 +257,7 @@ Browse to the LoadBalancer Ingress IP shown in the output above, appending port 
 ***
 
 ## <a name="acr"></a>Configuring Azure Container Registry
-> *June 6, 2018*
+> *June 2018*
 
 In my next post we will look to deploy the Containerized Go app into Azure Kubernetes Service (AKS). Before we can do that we need to create an Azure Container Registry to store our Docker image of the Book API application.
 
@@ -212,7 +343,7 @@ v1: digest: sha256:dfd4cb81c5e09166904b1bade3a08524cbfab444ce136769bfdb20152923a
 ***
 
 ## <a name="deployminikube"></a>Deploying Containerized Go app to Minikube
-> *June 5, 2018*
+> *June 2018*
 
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment. You will see how easy this is an why so many people use Minikube for their local Kubernetes testing.
 
@@ -239,18 +370,20 @@ You will know see something similar to the image below. Notice how the URL is di
 ***
 
 ## <a name="containergo"></a>Containerizing a Go Application
-> *June 3, 2018*
+> *June 2018*
 
 What I thought I would do in this post is to show you how to run a cool little Go application that acts as simple RESTful API service for a Book application. This application was written by Brad Traversy and is demonstrated/explained in his [YouTube video](https://youtu.be/SonwZ6MF5BE) and demonstrates the [Gorilla MUX router](http://www.gorillatoolkit.org/pkg/mux).
 
 First off, we need to download a copy of the application.
 #### Clone GitHub Repository
 ```
+$ cd ~
 $ git clone https://github.com/bradtraversy/go_restapi
 ```
 You can run and test this locally.
 #### Run the Go application
 ```
+$ cd ~/go_restapi
 $ go get github.com/gorilla/mux
 $ go run main.go
 ```
@@ -288,7 +421,7 @@ This will expose port 8000 to our local machine so you can then test the applica
 ***
 
 ## <a name="golang"></a>Getting started with Go
-> *June 1, 2018*
+> *May 2018*
 
 So far in a [previous post](#goodbye) I have setup my new PC with Ubuntu, installed all the tools I need to work with Azure, Docker and Kubernetes. Now lets look at getting Go installed so we can start to develop some applications of our own to deploy into Docker, Minikube or AKS!
 
@@ -353,7 +486,7 @@ Next post I will look at Containerizing a Go application.
 ***
 
 ## <a name="minikube"></a>Running Minikube
-> *May 29, 2018*
+> *May 2018*
 
 My [last post](#goodbye) described how I setup my new Ubuntu desktop PC with all the tools I need to do my job. Now I will look at how we test Minikube is working by deloying a sample application
 
@@ -428,7 +561,7 @@ $ kubectl delete deployment hello-minikube
 ***
 
 ## <a name="goodbye"></a>Goodbye Windows, Hello Ubuntu
-> *May 25, 2018*
+> *May 2018*
 
 I decided a few weeks ago that it was time to ditch Windows as my operating system of choice. I might work for Microsoft but the good thing about the new Microsoft is that we are all for personal choice. Don't get me wrong, I will still be using Microsoft technology but now it will be more Cloud focussed, specifically Microsoft365 or Azure.
 
