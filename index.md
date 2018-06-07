@@ -153,7 +153,7 @@ Cleanup complete in 1.688479196s
 ```
 ***
 
-## <a name="aks"></a>Deploying Containerized Go app to [AKS](https://azure.microsoft.com/en-us/services/container-service/)
+## <a name="aks"></a>Deploying Containerized Go app to [Azure Container Service (AKS)](https://azure.microsoft.com/en-us/services/container-service/)
 > *June 2018*
 
 Deploying the Go book app to AKS will conclude the journey from it running on a local PC, to running in a Docker container, to running in a local Minikube cluster to running in Azure AKS!
