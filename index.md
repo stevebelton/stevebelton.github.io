@@ -76,7 +76,7 @@ Service 'bookapp' port 'http' is available at http://localhost:33957
 ```
 You can now visit [http://localhost:33957](http://localhost:33957) and append `/books` to see our Go app once more deployed into Kubernetes!
 
-![azds](/azds.png)
+![azds](/azds-1.png)
 
 ***
 
