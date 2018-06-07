@@ -1,15 +1,15 @@
 ## Contents
 
-* [Deploying Containerized Go app via Skaffold](#skaffold)
-* [Deploying Containerized Go app to AKS](#aks)
-* [Configuring Azure Container Registry](#acr)
-* [Deploying Containerized Go app to Minikube](#deployminikube)
-* [Containerizing a Go app](#containergo)
-* [Getting started with Go](#golang)
-* [Running Minikube](#minikube)
-* [Goodbye Windows, Hello Ubuntu](#goodbye)
+* PART 8 - [Deploying Containerized Go app via Skaffold](#skaffold)
+* PART 7 - [Deploying Containerized Go app to AKS](#aks)
+* PART 6 - [Configuring Azure Container Registry](#acr)
+* PART 5 - [Deploying Containerized Go app to Minikube](#deployminikube)
+* PART 4 - [Containerizing a Go app](#containergo)
+* PART 3 - [Getting started with Go](#golang)
+* PART 2 - [Running Minikube](#minikube)
+* PART 1 - [Goodbye Windows, Hello Ubuntu](#goodbye)
 
-*Start from the bottom up if you're new here :-)*
+*Start from the bottom up if you're new here as these posts form a series :-)*
 
 ***
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
