@@ -133,11 +133,13 @@ Notice the last line *Watching for changes...* - this is where the Continuous De
 $ minikube service buildappsvc
 ```
 You should see in your browser something similar to the screenshot below, don't forget to append */books* to the URL.
+
 ![skaffold-output1](/skaffold-1.png)
 
 Go ahead and make a change to the *main.go* file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
 
 Refresh your browser and look for the change. In my case I changed the Surname of the first Author from *Doe* to *Summers*.
+
 ![skaffold-output2](/skaffold-2.png)
 
 Once you are done with testing, hit CTRL-C in the terminal window and this will stop the Skaffold process and clean up Minikube by deleting the *bookapp* service and deployment.
