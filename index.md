@@ -24,7 +24,7 @@ Lets take our Go books application and deploy it to Minikube using Skaffold. Eve
 In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory already in place.
 
 ### Create Kubernetes deployment YAML
-Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the imagePullSecrets entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
+Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the `imagePullSecrets` entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
 ```
 cd ~/go_restapi
 $ nano ./k8s-deploy.yaml
@@ -77,7 +77,7 @@ deploy:
 ```
 This tells Skaffold to create and use a Docker Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-* for our Kubernetes deployment. For our sample we are just using a single YAML file.
 
-Our ~/go_restapi directory should now have the following files:
+Our `~/go_restapi` directory should now have the following files:
 ```
 Dockerfile
 k8s-deploy.yaml
@@ -138,13 +138,13 @@ You should see in your browser something similar to the screenshot below, don't 
 
 ![skaffold-output1](/skaffold-1.png)
 
-Go ahead and make a change to the *main.go* file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
+Go ahead and make a change to the `main.go` file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
 
 Refresh your browser and look for the change. In my case I changed the Surname of the first Author from *Doe* to *Summers*.
 
 ![skaffold-output2](/skaffold-2.png)
 
-Once you are done with testing, hit CTRL-C in the terminal window and this will stop the Skaffold process and clean up Minikube by deleting the *bookapp* service and deployment.
+Once you are done with testing, hit `CTRL-C` in the terminal window and this will stop the Skaffold process and clean up Minikube by deleting the *bookapp* service and deployment.
 ```
 ^CCleaning up...
 deployment.apps "bookapp" deleted
@@ -295,7 +295,7 @@ Now let's create the ACR resource itself. The ACR name needs to be globally uniq
 ```
 $ az acr create --name mytestacr001 --resource-group test-group --sku Basic --admin-enabled true
 ```
-I am using the Basic SKU as this is just for dev/test and have enabled the *--admin-enabled* flag so that we don't have to bother with creating Service Principals - if this was for a Production deployment then we should leave this to *false*. I will cover Service Principals for AKS another time.
+I am using the Basic SKU as this is just for dev/test and have enabled the `--admin-enabled` flag so that we don't have to bother with creating Service Principals - if this was for a Production deployment then we should leave this to *false*. I will cover Service Principals for AKS another time.
 
 You should see output similar to the following:
 ```JSON
@@ -358,7 +358,7 @@ v1: digest: sha256:dfd4cb81c5e09166904b1bade3a08524cbfab444ce136769bfdb20152923a
 
 In my [last post](#containergo) I containerized a Go application using Docker. Now we're going to deploy this container into our local Minikube environment. You will see how easy this is an why so many people use Minikube for their local Kubernetes testing.
 
-First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to minikube-vm.
+First, make sure Minikube is running and is pointing at the local Minikube cluster. The output should point to `minikube-vm`
 #### Get Minikube status
 ```
 $ minikube status
@@ -368,7 +368,7 @@ $ minikube status
 $ kubectl run bookapp --image=bookapp:v1 --port=8000
 $ kubectl expose deployment bookapp --type=LoadBalancer
 ```
-These two commands will deploy the bookapp container to Minikube and then expose the deployment to the local machine - see my [previous post](#minikube) for more detail. If the first command fails with an error finding the Docker image, it is likely you did not run the *eval $(minikube docker-env)* command before creating it. You will need to re-create the Docker image after running this command.
+These two commands will deploy the bookapp container to Minikube and then expose the deployment to the local machine - see my [previous post](#minikube) for more detail. If the first command fails with an error finding the Docker image, it is likely you did not run the `eval $(minikube docker-env)` command before creating it. You will need to re-create the Docker image after running this command.
 
 To bring the website up in the local browser, simply run:
 ```
@@ -398,7 +398,7 @@ $ cd ~/go_restapi
 $ go get github.com/gorilla/mux
 $ go run main.go
 ```
-This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browse to http://localhost:8000/books you should see the 2 sample books being served as JSON. Press CTRL-C to stop the application before continuing.
+This will install the Gorilla Mux router and start a web server, listening on port 8000. If you browse to [http://localhost:8000/books](http://localhost:8000/books) you should see the 2 sample books being served as JSON. Press `CTRL-C` to stop the application before continuing.
 
 In order to run this application in Docker, we need to create a Docker file in the same directory with the following contents:
 ```JSON
@@ -425,7 +425,7 @@ $ docker build -t bookapp:v1 -f Dockerfile .
 ```
 $ docker run -p 8000:8000 bookapp:v1
 ```
-This will expose port 8000 to our local machine so you can then test the application by browsing to http://localhost:8000/books as before, only this time the page will be served from our new container!
+This will expose port 8000 to our local machine so you can then test the application by browsing to [http://localhost:8000/books](http://localhost:8000/books) as before, only this time the page will be served from our new container!
 
 ![container](/localmachine.png)
 
@@ -527,7 +527,7 @@ Then we need to expose port 8080 to our host system so we can see the website ru
 ```
 $ kubectl expose deployment hello-minikube --type=NodePort
 ```
-This will automatically create a Kubernetes service and expose the port. Running *kubectl get services* will show you something similar to the below:
+This will automatically create a Kubernetes service and expose the port. Running `kubectl get services` will show you something similar to the below:
 ```
 $ hello-minikube   NodePort       10.100.74.0     <none>        8080:32732/TCP   16s
 ```
