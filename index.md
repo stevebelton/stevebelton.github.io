@@ -78,6 +78,25 @@ You can now visit [http://localhost:33957](http://localhost:33957) and append `/
 
 ![azds](/azds-1.png)
 
+If you go back to your terminal window you should see that the HTTP logging appears from you hitting the website in the browser:
+```
+localhost --ngu-> bookapp-d4db7798-8j6wd:
+   GET / HTTP/1.1
+localhost <-ngu-- bookapp-d4db7798-8j6wd:
+   HTTP/1.1 404 Not Found
+   404 page not found
+localhost --fhn-> bookapp-d4db7798-8j6wd:
+   GET /books HTTP/1.1
+localhost <-fhn-- bookapp-d4db7798-8j6wd:
+   HTTP/1.1 200 OK
+   [{"id":"1","isbn":"438227","title":"Book One","author":{"firstname":"John","lastname":"Doe"}},{"id":"2","isbn":"454555","tit...<[TRUNCATED]>
+```
+When you are finished with your container you simply hit `CTRL-C` and then run:
+```
+$ azds down
+```
+This will remove the deployment from Kubernetes.
+
 ***
 
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
