@@ -19,7 +19,7 @@ You probably wont see the point of Skaffold, until you use it! It is a simple co
 
 Lets take our Go books application and deploy it to Minikube using Skaffold. Everything here is local to the PC. Skaffold does have a requirement of a Git repository.
 
-In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory all ready in place.
+In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory already in place.
 
 ### Create Kubernetes deployment YAML
 Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the imagePullSecrets entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
