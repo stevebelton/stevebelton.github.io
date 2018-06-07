@@ -15,7 +15,7 @@
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
 > *June 2018
 
-You probably wont see the use of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but Skaffold can take your application from GitHub (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a Kubernetes deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your Docker container and re-deploy to Kubernetes in a matter of seconds.
+You probably wont see the point of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but Skaffold can take your application from GitHub (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a Kubernetes deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your Docker container and re-deploy to Kubernetes in a matter of seconds.
 
 Lets take our Go books application and deploy it to Minikube using Skaffold. Everything here is local to the PC. Skaffold does have a requirement of a Git repository.
 
