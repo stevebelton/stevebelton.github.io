@@ -136,7 +136,7 @@ You should see in your browser something similar to the screenshot below, don't 
 ![skaffold-output1](/skaffold-1.png)
 Go ahead and make a change to the *main.go* file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
 
-Refresh your browser and look for the change. In my case I chaged the Surname of the first Author from Smith to Summers.
+Refresh your browser and look for the change. In my case I chaged the Surname of the first Author from *Doe* to *Summers*.
 ![skaffold-output2](/skaffold-2.png)
 
 ***
