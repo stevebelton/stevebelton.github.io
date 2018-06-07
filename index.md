@@ -2,6 +2,7 @@
 
 I have created the posts below as part of a series, a getting started with **Linux/Kubernetes/Docker/Golang/AKS/Minikube** type of series. 
 
+* PART 9 - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
 * PART 8 - [Deploying Containerized Go app via Skaffold](#skaffold)
 * PART 7 - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
 * PART 6 - [Configuring Azure Container Registry (ACR)](#acr)
@@ -14,6 +15,71 @@ I have created the posts below as part of a series, a getting started with **Lin
 *Start from the bottom up if you're new here :-)*
 
 ***
+## <a name="azds"></a>Deploying a Containerized Go app to Azure Dev Spaces
+> *June 2018*
+
+Azure Dev Spaces is a Preview feature in Azure, working in a similar fashion to Skaffold. It will automatically determine the language your application is written in (dotnetcore and nodejs right now) and generate the required YAML files and Dockerfile in order to deploy to Azure Container Service (AKS).
+
+There is a great post on how to get started with Azure Dev Spaces [right here](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces). I recommend you follow this post before carrying on here as it details everything you need to know to install AZDS. In a nutshell though, it's the following command:
+
+```
+az aks use-dev-spaces -g test-group -n MyAKSCluster
+```
+
+> You must make sure that the AKS cluster you are deploying to has been built with [HTTP Application Routing](https://docs.microsoft.com/en-gb/azure/aks/http-application-routing) enabled. I have yet to see a way to enable this POST AKS cluster creation.
+
+What I will show you in this post is how to "work around" the limitation that it AZDS doesn't support Go so we can deploy our app (again!) :-)
+
+First off we need to create a new directory to store our AZDS project in and copy some files in from our `~/go_restapi` directory.
+
+```
+$ mkdir ~/bookapp
+$ cp ~/go_restapi/main.go .
+$ cp ~/go_restapi/Dockerfile .
+```
+Now we need to edit `main.go` and change the http listener port to 80 instead of 8000. I have tried deploying to AZDS with port 8000 but it fails. It could just be a limitation of the Preview or I could be doing something wrong! This way works though.
+We also need to edit `Dockerfile` and add the following lines after the first line of the file, the FROM line.
+```
+EXPOSE 80
+ENV PORT 80
+```
+Once you have made these changes you can run the following to prepare the directory for use with AZDS:
+```
+$ cd ~/bookapp
+$ azds prep
+```
+This will create the Helm charts and the `azds.yaml` file we need.
+That's it. Now run:
+```
+$ azds up
+```
+This will build our container and deploy it to AKS - exposing it to our local machine through the Kubernetes proxy so we see it as `http://localhost:xxxxx` - with a random port generated.
+The output from `azds up` should be similar to:
+```
+Using AKS cluster: 'myAKSCluster'
+Synchronizing files...1s
+Installing chart...4s
+Building container image...
+Step 1/9 : FROM golang:latest
+Step 2/9 : EXPOSE 80
+Step 3/9 : ENV PORT 80
+Step 4/9 : RUN mkdir /app
+Step 5/9 : ADD . /app/
+Step 6/9 : WORKDIR /app
+Step 7/9 : RUN go get github.com/gorilla/mux
+Step 8/9 : RUN go build -o main .
+Step 9/9 : CMD /app/main
+Built container image in 9s
+Waiting for container...1s
+Press Ctrl+C to detach
+Service 'bookapp' port 'http' is available at http://localhost:33957
+```
+You can now visit [http://localhost:33957](http://localhost:33957) and append `/books` to see our Go app once more deployed into Kubernetes!
+
+![azds](/azds.png)
+
+***
+
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
 > *June 2018*
 
