@@ -15,7 +15,7 @@ I have create the posts below as part of a series, a getting started with Linux/
 
 ***
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
-> *June 2018
+> *June 2018*
 
 You probably wont see the point of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but Skaffold can take your application from GitHub (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a Kubernetes deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your Docker container and re-deploy to Kubernetes in a matter of seconds.
 
@@ -154,7 +154,7 @@ Cleanup complete in 1.688479196s
 ***
 
 ## <a name="aks"></a>Deploying Containerized Go app to [AKS](https://azure.microsoft.com/en-us/services/container-service/)
-> *June 2018
+> *June 2018*
 
 Deploying the Go book app to AKS will conclude the journey from it running on a local PC, to running in a Docker container, to running in a local Minikube cluster to running in Azure AKS!
 This part of the series takes the longest to setup due to the deployment of the Kubernetes cluster (AKS) in Azure.
