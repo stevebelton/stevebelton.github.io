@@ -1,6 +1,6 @@
 ## Contents
 
-I have create the posts below as part of a series, a getting started with Linux/Kubernetes/Docker/Golang/AKS/Minikube type of series. 
+I have created the posts below as part of a series, a getting started with **Linux/Kubernetes/Docker/Golang/AKS/Minikube** type of series. 
 
 * PART 8 - [Deploying Containerized Go app via Skaffold](#skaffold)
 * PART 7 - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
