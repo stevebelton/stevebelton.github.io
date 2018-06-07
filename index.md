@@ -21,7 +21,7 @@ You probably wont see the point of Skaffold, until you use it! It is a simple co
 
 Lets take our Go books application and deploy it to Minikube using Skaffold. Everything here is local to the PC. Skaffold does have a requirement of a Git repository.
 
-In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory already in place.
+> In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory already in place.
 
 ### Create Kubernetes deployment YAML
 Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the `imagePullSecrets` entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
@@ -85,7 +85,7 @@ main.go
 README.md
 skaffold.yaml
 ```
-Plus the hidden .git directory.
+> Plus the hidden .git directory.
 
 ### Set Docker to Minikube context
 We need to run this before we use Skaffold with Minikube, as with previous posts. This will tell Minikube to use the local Minikube docker repository.
@@ -140,7 +140,7 @@ You should see in your browser something similar to the screenshot below, don't 
 
 Go ahead and make a change to the `main.go` file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
 
-Refresh your browser and look for the change. In my case I changed the Surname of the first Author from *Doe* to *Summers*.
+> Refresh your browser and look for the change. In my case I changed the Surname of the first Author from *Doe* to *Summers*.
 
 ![skaffold-output2](/skaffold-2.png)
 
@@ -195,7 +195,7 @@ We need to store our Docker / ACR Credentials in an encrypted key within Kuberne
 ```
 $ kubectl create secret docker-registry mytestacrsecret --docker-server=mytestacr001.azurecr.io --docker-username=mytestacr001 --docker-password=xxxxxxxxxxxxxxxxxxxxxxxxxxx --docker-email=me@myemail.com
 ```
-Replace the *xxxxxxxxxxxxxxxxxxxxxxxxxx* with the password retrieved from AZ or the Portal as well as using your real email address.
+Replace the *xxxxxxxxxxxxxxxxxxxxxxxxxx* with the password retrieved from `az` or the Portal as well as using your real email address.
 
 We are almost good to go with a deployment now. Final step is to create a deployment YAML file (call it bookapp.yaml) containing the information Kubernetes needs to deploy our application. We will just deploy a single replica for this demonstration, creating a new Kubernetes Service, exposing port 8000 through an external Load Balancer. This will make it visible on the internet.
 
