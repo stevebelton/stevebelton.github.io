@@ -25,7 +25,7 @@ In one of the previous posts we cloned a repository from Brad Traversy to get ou
 Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the imagePullSecrets entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
 ```
 cd ~/go_restapi
-$ nano ./k82-deploy.yaml
+$ nano ./k8s-deploy.yaml
 ```
 Copy and Paste the following into the new file:
 ```
