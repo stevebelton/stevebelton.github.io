@@ -3,8 +3,8 @@
 I have create the posts below as part of a series, a getting started with Linux/Kubernetes/Docker/Golang/AKS/Minikube type of series. 
 
 * PART 8 - [Deploying Containerized Go app via Skaffold](#skaffold)
-* PART 7 - [Deploying Containerized Go app to AKS](#aks)
-* PART 6 - [Configuring Azure Container Registry](#acr)
+* PART 7 - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
+* PART 6 - [Configuring Azure Container Registry (ACR)](#acr)
 * PART 5 - [Deploying Containerized Go app to Minikube](#deployminikube)
 * PART 4 - [Containerizing a Go app](#containergo)
 * PART 3 - [Getting started with Go](#golang)
@@ -267,7 +267,7 @@ Browse to the LoadBalancer Ingress IP shown in the output above, appending port 
 
 ***
 
-## <a name="acr"></a>Configuring Azure Container Registry
+## <a name="acr"></a>Configuring Azure Container Registry (ACR)
 > *June 2018*
 
 In my next post we will look to deploy the Containerized Go app into Azure Kubernetes Service (AKS). Before we can do that we need to create an Azure Container Registry to store our Docker image of the Book API application.
