@@ -20,7 +20,7 @@ I have created the posts below as part of a series, a getting started with **Lin
 ## <a name="aci"></a>Deploying a Containerized Go app to [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/)
 > *June 2018*
 
-Just as you thought we couldn't deploy our little Go book application anywhere else, we shouldn't forget about Azure Container Instances (ACI). ACI is a fantastic place to spin up dev/test containers as they're single instance and as near to immediate to deploy as you can get with a cloud hosted container service. There are several command line options available to tweak your container instance, from CPU to memory to the OS type (Windows or Linux) but in order to host our Go application we will just accept the defaults. We will be deploying from the Azure Container Registry we [created here](#acr) so we need to once again get the admin password for it to give to ACI.
+Just as you thought we couldn't deploy our little Go book application anywhere else, we shouldn't forget about **Azure Container Instances (ACI)**. ACI is a fantastic place to spin up dev/test containers as they're single instance and as near to immediate to deploy as you can get with a cloud hosted container service. There are several command line options available to tweak your container instance, from CPU to memory to the OS type (Windows or Linux) but in order to host our Go application we will just accept the defaults. We will be deploying from the **Azure Container Registry** we [created here](#acr) so we need to once again get the admin password for it to give to ACI.
 
 ### Get ACR Credentials
 ```
@@ -43,10 +43,10 @@ $ az container show --resource-group test-group --name bookappcontainer --query 
 
 ![bookapp-aci](/bookapp-aci.png)
 
-Such a great way to test a container if you don't have access to Minikube or AKS or any other Kubernetes service - and with the benefit of hosting it in the public cloud with a publicly visible URL!
+Such a great way to test a container if you don't have access to **Minikube** or **AKS** or any other **Kubernetes** service - and with the benefit of hosting it in the public cloud with a publicly visible URL!
 
 ### There is always another way!
-Just to make things complete, there is another way to deploy ACI containers - we can use a YAML files (or ARM Template). We can deploy a single instance ACI Container Group. Create a file called `deploy-bookapp.yaml` and paste the following content in:
+Just to make things complete, there is another way to deploy ACI containers - we can use a YAML files (or ARM Template). We can deploy a single instance **ACI Container Group**. Create a file called `deploy-bookapp.yaml` and paste the following content in:
 ```
 apiVersion: 2018-06-01
 location: eastus
@@ -98,9 +98,9 @@ Paste this into a browser and append `:8000/books` and you will see our Go appli
 ## <a name="azds"></a>Deploying a Containerized Go app to [Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces)
 > *June 2018*
 
-Azure Dev Spaces is a Preview feature in Azure, working in a similar fashion to Skaffold. It will automatically determine the language your application is written in (dotnetcore and nodejs right now) and generate the required YAML files and Dockerfile in order to deploy to Azure Container Service (AKS).
+**Azure Dev Spaces (AZDS)** is a Preview feature in Azure, working in a similar fashion to **Skaffold**. It will automatically determine the language your application is written in (dotnetcore and nodejs right now) and generate the required YAML files and Dockerfile in order to deploy to **Azure Container Service (AKS)**.
 
-There is a great post on how to get started with Azure Dev Spaces [right here](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces). I recommend you follow this post before carrying on here as it details everything you need to know to install AZDS. In a nutshell though, it's the following command:
+There is a great post on how to get started with **Azure Dev Spaces** [right here](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces). I recommend you follow this post before carrying on here as it details everything you need to know to install AZDS. In a nutshell though, it's the following command:
 
 ```
 az aks use-dev-spaces -g test-group -n MyAKSCluster
@@ -182,14 +182,14 @@ This will remove the deployment from Kubernetes.
 ## <a name="skaffold"></a>Deploying Containerized Go app via [Skaffold](https://github.com/GoogleContainerTools/skaffold)
 > *June 2018*
 
-You probably wont see the point of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but Skaffold can take your application from GitHub (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a Kubernetes deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your Docker container and re-deploy to Kubernetes in a matter of seconds.
+You probably wont see the point of Skaffold, until you use it! It is a simple command line tool that help to facilitate Continuous Deployment into Kubernetes. You are still required to create your Kubernetes deployment YAML files but **Skaffold** can take your application from **GitHub** (or local Git repository), build it into a Docker Container, deploy it to a registry and then kick off a **Kubernetes** deployment/service build. In Development mode it will then watch for any code changes to your Git respository and upon finding any, rebuild your **Docker** container and re-deploy to **Kubernetes** in a matter of seconds.
 
-Lets take our Go books application and deploy it to Minikube using Skaffold. Everything here is local to the PC. Skaffold does have a requirement of a Git repository.
+Lets take our Go books application and deploy it to **Minikube** using **Skaffold**. Everything here is local to the PC. **Skaffold** does have a requirement of a Git repository.
 
-> In one of the previous posts we cloned a repository from Brad Traversy to get our sample Go application. This has the benefit of having a .git directory already in place.
+> In one of the previous posts we cloned a repository from **Brad Traversy** to get our sample Go application. This has the benefit of having a .git directory already in place.
 
 ### Create Kubernetes deployment YAML
-Our Kubernetes YAML file is very similar to the one we used to deploy to AKS, however it does not need the `imagePullSecrets` entry and the name of our image needs to change as we cannot use the :v1 suffix with Skaffold images.
+Our **Kubernetes** YAML file is very similar to the one we used to deploy to AKS, however it does not need the `imagePullSecrets` entry and the name of our image needs to change as we cannot use the :v1 suffix with **Skaffold** images.
 ```
 cd ~/go_restapi
 $ nano ./k8s-deploy.yaml
@@ -240,7 +240,7 @@ deploy:
     manifests:
       - k8s-*
 ```
-This tells Skaffold to create and use a Docker Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-* for our Kubernetes deployment. For our sample we are just using a single YAML file.
+This tells **Skaffold** to create and use a **Docker** Image called *bookapp* and to use any YAML files in the current directory that start with *k8s-* for our Kubernetes deployment. For our sample we are just using a single YAML file.
 
 Our `~/go_restapi` directory should now have the following files:
 ```
@@ -253,7 +253,7 @@ skaffold.yaml
 > Plus the hidden .git directory.
 
 ### Set Docker to Minikube context
-We need to run this before we use Skaffold with Minikube, as with previous posts. This will tell Minikube to use the local Minikube docker repository.
+We need to run this before we use **Skaffold** with **Minikube**, as with previous posts. This will tell **Minikube** to use the local **Minikube** docker repository.
 ```
 $ eval $(minikube docker-env)
 ```
@@ -261,7 +261,7 @@ $ eval $(minikube docker-env)
 ```
 $ skaffold dev
 ```
-This will start the process of building and deploying your Container image to Minikube and you should see something similar to the following output:
+This will start the process of building and deploying your Container image to **Minikube** and you should see something similar to the following output:
 ```
 Starting build...
 Found [minikube] context, using local docker daemon.
@@ -303,13 +303,13 @@ You should see in your browser something similar to the screenshot below, don't 
 
 ![skaffold-output1](/skaffold-1.png)
 
-Go ahead and make a change to the `main.go` file, change the name of an Author for example. As soon as you save the file Skaffold will pick up the change, rebuild the Docker container and re-deploy it to Minikube. Pretty cool!
+Go ahead and make a change to the `main.go` file, change the name of an *Author* for example. As soon as you save the file **Skaffold** will pick up the change, rebuild the **Docker** container and re-deploy it to **Minikube**. Pretty cool!
 
 > Refresh your browser and look for the change. In my case I changed the Surname of the first Author from *Doe* to *Summers*.
 
 ![skaffold-output2](/skaffold-2.png)
 
-Once you are done with testing, hit `CTRL-C` in the terminal window and this will stop the Skaffold process and clean up Minikube by deleting the *bookapp* service and deployment.
+Once you are done with testing, hit `CTRL-C` in the terminal window and this will stop the **Skaffold** process and clean up **Minikube** by deleting the *bookapp* service and deployment.
 ```
 ^CCleaning up...
 deployment.apps "bookapp" deleted
