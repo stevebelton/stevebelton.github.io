@@ -31,9 +31,9 @@ $ az acr credential show --name mytestacr001 --resource-group test-group --query
 $ az container create --resource-group test-group --name bookappcontainer --image mytestacr001.azurecr.io/bookapp:v1 --dns-name-label bookapp --ports 8000 --registry-username mytestacr001 --registry-password <xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>
 ```
 Replace the <xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx> with the ACR password retrieved in the previous command.
-This should only take a few seconds to deploy your ACI container. It will take maybe a minute more to fully be up and running and then we can browse to the ACI URL as see our book application.
+This should only take a few seconds to deploy your ACI container. It will take maybe a minute more to fully be up and running and then we can browse to the ACI URL to see our book application. Make sure to append `:8000/books`.
    
-### Retrive the ACI container URL
+### Retrieve the ACI container URL
 ```
 $ az container show --resource-group test-group --name bookappcontainer --query "ipAddress.fqdn"
 ```
