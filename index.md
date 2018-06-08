@@ -12,7 +12,7 @@ I have created the posts below as part of a series, a getting started with **Lin
 * PART 2  - [Getting started with Go](#golang)
 * PART 1  - [Running Minikube](#minikube)
 
-*   - [Goodbye Windows, Hello Ubuntu](#goodbye)
+* [Goodbye Windows, Hello Ubuntu](#goodbye)
 
 *Start from the bottom up if you're new here :-)*
 
