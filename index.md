@@ -45,6 +45,53 @@ $ az container show --resource-group test-group --name bookappcontainer --query 
 
 Such a great way to test a container if you don't have access to Minikube or AKS or any other Kubernetes service - and with the benefit of hosting it in the public cloud with a publicly visible URL!
 
+### There is always another way!
+Just to make things complete, there is another way to deploy ACI containers - we can use a YAML files (or ARM Template). We can deploy a single instance ACI Container Group. Create a file called `deploy-bookapp.yaml` and paste the following content in:
+```
+apiVersion: 2018-06-01
+location: eastus
+name: bookContainerGroup
+properties:
+  containers:
+  - name: bookcontainer
+    properties:
+      image: mytestacr001.azurecr.io/bookapp:v1
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 8000
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: tcp
+      port: '8000'
+  imageRegistryCredentials:
+  - server: mytestacr001.azurecr.io
+    username: mytestacr001
+    password: <INSERT REGISTRY PASSWORD>
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
+```
+You will need to change the name of the ACR for the `image:`, `server:` and `username:` as well as pasting in the `password:` for your ACR, retrieved as per usual with `az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"`.
+
+Save this file and then run the following command to deploy our Go application.
+```
+$ az container create --resource-group test-group --name bookContainerGroup -f ~/deploy-bookapp.yaml
+```
+This will create our new ACI container group, containing a single container running out Go application.
+You can check on the status of the deployment using:
+```
+$ az container show --resource-group test-group --name myContainerGroup
+```
+To get the IP address of the container you can run:
+```
+$ az container show --resource-group test-group --name myContainerGroup --query "ipAddress.ip"
+```
+Paste this into a browser and append `:8000/books` and you will see our Go application happily running!
+
 ***
 ## <a name="azds"></a>Deploying a Containerized Go app to [Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces)
 > *June 2018*
