@@ -75,7 +75,7 @@ properties:
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
 ```
-You will need to change the name of the ACR for the `image:`, `server:` and `username:` as well as pasting in the `password:` for your ACR, retrieved as per usual with `az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"`.
+You will need to change the name of the ACR for the `image:`, `server:` and `username:` as well as pasting in the `password:` for your ACR, retrieved as per usual with `$ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"`.
 
 Save this file and then run the following command to deploy our Go application.
 ```
