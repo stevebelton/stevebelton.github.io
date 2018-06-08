@@ -108,7 +108,7 @@ az aks use-dev-spaces -g test-group -n MyAKSCluster
 
 > You must make sure that the AKS cluster you are deploying to has been built with [HTTP Application Routing](https://docs.microsoft.com/en-gb/azure/aks/http-application-routing) enabled. I have yet to see a way to enable this POST AKS cluster creation.
 
-What I will show you in this post is how to "work around" the limitation that it AZDS doesn't support Go so we can deploy our app (again!) :-)
+What I will show you in this post is how to "work around" the limitation of AZDS not supporting Go, so we can deploy our app (again!)
 
 First off we need to create a new directory to store our AZDS project in and copy some files in from our `~/go_restapi` directory.
 
