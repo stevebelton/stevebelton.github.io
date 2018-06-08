@@ -38,6 +38,7 @@ This should only take a few seconds to deploy your ACI container. It will take m
 $ az container show --resource-group test-group --name bookappcontainer --query "ipAddress.fqdn"
 ```
 
+
 ![bookapp-aci](/bookapp-aci.png)
 
 Such a great way to test a container if you don't have access to Minikube or AKS or any other Kubernetes service - and with the benefit of hosting it in the public cloud with a publicly visible URL!
