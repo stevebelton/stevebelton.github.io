@@ -2,16 +2,17 @@
 
 I have created the posts below as part of a series, a getting started with **Linux/Kubernetes/Docker/Golang/AKS/Minikube** type of series. 
 
-* PART 10 - [Deploying Containerized Go app to Azure Container Instances](#aci)
-* PART 9  - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
-* PART 8  - [Deploying Containerized Go app via Skaffold](#skaffold)
-* PART 7  - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
-* PART 6  - [Configuring Azure Container Registry (ACR)](#acr)
-* PART 5  - [Deploying Containerized Go app to Minikube](#deployminikube)
-* PART 4  - [Containerizing a Go app](#containergo)
-* PART 3  - [Getting started with Go](#golang)
-* PART 2  - [Running Minikube](#minikube)
-* PART 1  - [Goodbye Windows, Hello Ubuntu](#goodbye)
+* PART 9 - [Deploying Containerized Go app to Azure Container Instances](#aci)
+* PART 8  - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
+* PART 7  - [Deploying Containerized Go app via Skaffold](#skaffold)
+* PART 6  - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
+* PART 5  - [Configuring Azure Container Registry (ACR)](#acr)
+* PART 4  - [Deploying Containerized Go app to Minikube](#deployminikube)
+* PART 3  - [Containerizing a Go app](#containergo)
+* PART 2  - [Getting started with Go](#golang)
+* PART 1  - [Running Minikube](#minikube)
+
+*   - [Goodbye Windows, Hello Ubuntu](#goodbye)
 
 *Start from the bottom up if you're new here :-)*
 
