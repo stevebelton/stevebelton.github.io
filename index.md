@@ -38,6 +38,7 @@ This should only take a few seconds to deploy your ACI container. It will take m
 $ az container show --resource-group test-group --name bookappcontainer --query "ipAddress.fqdn"
 ```
 
+### Browse the ACI URL
 
 ![bookapp-aci](/bookapp-aci.png)
 
