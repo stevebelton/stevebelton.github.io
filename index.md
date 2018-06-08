@@ -15,7 +15,7 @@ I have created the posts below as part of a series, a getting started with **Lin
 *Start from the bottom up if you're new here :-)*
 
 ***
-## <a name="azds"></a>Deploying a Containerized Go app to Azure Dev Spaces
+## <a name="azds"></a>Deploying a Containerized Go app to [Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces)
 > *June 2018*
 
 Azure Dev Spaces is a Preview feature in Azure, working in a similar fashion to Skaffold. It will automatically determine the language your application is written in (dotnetcore and nodejs right now) and generate the required YAML files and Dockerfile in order to deploy to Azure Container Service (AKS).
