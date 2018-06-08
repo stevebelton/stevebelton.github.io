@@ -19,7 +19,7 @@ I have created the posts below as part of a series, a getting started with **Lin
 ## <a name="aci"></a>Deploying a Containerized Go app to [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/)
 > *June 2018*
 
-Just as you thought we couldn't deploy our little Go book application anywhere else, we shouldn't forget about Azure Container Instances (ACI). ACI is a fantastic place to spin up dev/test containers as they're single instance and as near to immediate as you can get with a container. There are several command line options available to tweak your container instance, from CPU to memory to the OS type (Windows or Linux) but in order to host our Go application we will just accept the defaults. We will be deploying from the Azure Container Registry we [created here](#acr) so we need to once again get the admin password for it to give to ACI.
+Just as you thought we couldn't deploy our little Go book application anywhere else, we shouldn't forget about Azure Container Instances (ACI). ACI is a fantastic place to spin up dev/test containers as they're single instance and as near to immediate to deploy as you can get with a cloud hosted container service. There are several command line options available to tweak your container instance, from CPU to memory to the OS type (Windows or Linux) but in order to host our Go application we will just accept the defaults. We will be deploying from the Azure Container Registry we [created here](#acr) so we need to once again get the admin password for it to give to ACI.
 
 ### Get ACR Credentials
 ```
