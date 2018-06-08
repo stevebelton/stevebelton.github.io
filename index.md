@@ -82,6 +82,8 @@ Save this file and then run the following command to deploy our Go application.
 $ az container create --resource-group test-group --name bookContainerGroup -f ~/deploy-bookapp.yaml
 ```
 This will create our new ACI container group, containing a single container running out Go application.
+> Make sure the name used on the create command matches that in the YAML file in the `name` section
+
 You can check on the status of the deployment using:
 ```
 $ az container show --resource-group test-group --name myContainerGroup
