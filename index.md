@@ -2,17 +2,45 @@
 
 I have created the posts below as part of a series, a getting started with **Linux/Kubernetes/Docker/Golang/AKS/Minikube** type of series. 
 
-* PART 9 - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
-* PART 8 - [Deploying Containerized Go app via Skaffold](#skaffold)
-* PART 7 - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
-* PART 6 - [Configuring Azure Container Registry (ACR)](#acr)
-* PART 5 - [Deploying Containerized Go app to Minikube](#deployminikube)
-* PART 4 - [Containerizing a Go app](#containergo)
-* PART 3 - [Getting started with Go](#golang)
-* PART 2 - [Running Minikube](#minikube)
-* PART 1 - [Goodbye Windows, Hello Ubuntu](#goodbye)
+* PART 10 - [Deploying Containerized Go app to Azure Container Instances](#aci)
+* PART 9  - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
+* PART 8  - [Deploying Containerized Go app via Skaffold](#skaffold)
+* PART 7  - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
+* PART 6  - [Configuring Azure Container Registry (ACR)](#acr)
+* PART 5  - [Deploying Containerized Go app to Minikube](#deployminikube)
+* PART 4  - [Containerizing a Go app](#containergo)
+* PART 3  - [Getting started with Go](#golang)
+* PART 2  - [Running Minikube](#minikube)
+* PART 1  - [Goodbye Windows, Hello Ubuntu](#goodbye)
 
 *Start from the bottom up if you're new here :-)*
+
+***
+## <a name="aci"></a>Deploying a Containerized Go app to [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/)
+> *June 2018*
+
+Just as you thought we couldn't deploy our little Go book application anywhere else, we shouldn't forget about Azure Container Instances (ACI). ACI is a fantastic place to spin up dev/test containers as they're single instance and as near to immediate as you can get with a container. There are several command line options available to tweak your container instance, from CPU to memory to the OS type (Windows or Linux) but in order to host our Go application we will just accept the defaults. We will be deploying from the Azure Container Registry we [created here](#acr) so we need to once again get the admin password for it to give to ACI.
+
+### Get ACR Credentials
+```
+$ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"
+```
+
+### Deploy Go application to ACI
+```
+$ az container create --resource-group test-group --name bookappcontainer --image mytestacr001.azurecr.io/bookapp:v1 --dns-name-label bookapp --ports 8000 --registry-username mytestacr001 --registry-password <xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>
+```
+Replace the <xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx> with the ACR password retrieved in the previous command.
+This should only take a few seconds to deploy your ACI container. It will take maybe a minute more to fully be up and running and then we can browse to the ACI URL as see our book application.
+   
+### Retrive the ACI container URL
+```
+$ az container show --resource-group test-group --name bookappcontainer --query "ipAddress.fqdn"
+```
+
+![bookapp-aci](/bookapp-aci.png)
+
+Such a great way to test a container if you don't have access to Minikube or AKS or any other Kubernetes service - and with the benefit of hosting it in the public cloud with a publicly visible URL!
 
 ***
 ## <a name="azds"></a>Deploying a Containerized Go app to [Azure Dev Spaces](https://docs.microsoft.com/en-us/azure/dev-spaces/azure-dev-spaces)
