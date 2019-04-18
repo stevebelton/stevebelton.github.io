@@ -377,6 +377,7 @@ Either using the Azure CLI:
 $ az acr credential show --name mytestacr001 --resource-group test-group --query "passwords[0:1].value"
 ```
 Or from the Azure Portal:
+
 ![acr-password](/acr-password.png)
 
 ### Create Kubernetes Secret
