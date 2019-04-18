@@ -29,9 +29,15 @@ az aks enable-addons -a monitoring -n MyAKSCluster -g test-group
 
 Once enabled, you can click on the Insights link under the Monitor tab in the AKS blade and you will see you have the option to view Health for the Cluster, Nodes, Controllers and Containers.
 
-Selecting the Containers tab will display a list of all containers in the AKS cluster along with various information on their health. You will see below we can see our Go book application (bookapp) highlighted.
+Selecting the Containers tab will display a list of all containers in the AKS cluster along with various information on their health. In the image below we can see our Go book application (bookapp) highlighted.
 
 ![bookapp-ci](/book-app.png)
+
+Clicking on the bookapp Container will open another blade to the right and show you more detail on the specific container.
+
+![bookapp-ci-info](/book-app-info.png)
+
+In the next part of my blog we will go through viewing Container Logs and Container Live Logs!
 
 ***
 ## <a name="aci"></a>Deploying a Containerized Go app to [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/)
