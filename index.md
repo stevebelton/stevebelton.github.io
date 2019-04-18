@@ -5,7 +5,7 @@ I have created the posts below as part of a series, a getting started with **Lin
 * PART 9 - [Deploying Containerized Go app to Azure Container Instances](#aci)
 * PART 8  - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
 * PART 7  - [Deploying Containerized Go app via Skaffold](#skaffold)
-* PART 6  - [Deploying Containerized Go app to Azure Container Service (AKS)](#aks)
+* PART 6  - [Deploying Containerized Go app to Azure Kubernetes Service (AKS)](#aks)
 * PART 5  - [Configuring Azure Container Registry (ACR)](#acr)
 * PART 4  - [Deploying Containerized Go app to Minikube](#deployminikube)
 * PART 3  - [Containerizing a Go app](#containergo)
@@ -15,6 +15,23 @@ I have created the posts below as part of a series, a getting started with **Lin
 * [Goodbye Windows, Hello Ubuntu](#goodbye)
 
 *Start from the bottom up if you're new here :-)*
+
+***
+## <a name="ci"></a>Monitoring a Containerized Go app in AKS using Azure Monitor for Containers
+> *April 2019*
+
+In Part 6 we deployed the Go book application into AKS. This deploys fine and will then run quite happily until you delete it, or experiences issues. Ideally you do not want to wait for your application to die due to performance or other health issues, you should be proactive in its monitoring. This is where Azure Monitor for Containers comes into play. 
+
+In order to enable Azure Monitor for Containers there is a great article to follow on Azure Docs (https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard). There are important pre-requisites to check and these are highlighted here but in the simplest of terms the following Azure CLI command will enable for your cluster:
+```
+az aks enable-addons -a monitoring -n MyAKSCluster -g test-group
+```
+
+Once enabled, you can click on the Insights link under the Monitor tab in the AKS blade and you will see you have the option to view Health for the Cluster, Nodes, Controllers and Containers.
+
+Selecting the Containers tab will display a list of all containers in the AKS cluster along with various information on their health. You will see below we can see our Go book application (bookapp) highlighted.
+
+![bookapp-ci](/book-app.png)
 
 ***
 ## <a name="aci"></a>Deploying a Containerized Go app to [Azure Container Instances](https://docs.microsoft.com/en-gb/azure/container-instances/)
@@ -318,7 +335,7 @@ Cleanup complete in 1.688479196s
 ```
 ***
 
-## <a name="aks"></a>Deploying Containerized Go app to [Azure Container Service (AKS)](https://azure.microsoft.com/en-us/services/container-service/)
+## <a name="aks"></a>Deploying Containerized Go app to [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/)
 > *June 2018*
 
 Deploying the Go book app to AKS will conclude the journey from it running on a local PC, to running in a Docker container, to running in a local Minikube cluster to running in Azure AKS!
@@ -327,7 +344,7 @@ This part of the series takes the longest to setup due to the deployment of the 
 ```
 $ az provider register -n Microsoft.ContainerService
 ```
-This will register the ARM Provider for Container Services, if not already registered in your subscription.
+This will register the ARM Provider for AKS, if not already registered in your subscription.
 ### Create a single node AKS Cluster
 ```
 $ az aks create --resource-group test-group --name myAKSCluster --node-count 1 --generate-ssh-keys
