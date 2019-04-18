@@ -2,6 +2,7 @@
 
 I have created the posts below as part of a series, a getting started with **Linux/Kubernetes/Docker/Golang/AKS/Minikube** type of series. 
 
+* PART 10 - [Monitoring a Containerized Go app in AKS using Azure Monitor for Containers](#ci)
 * PART 9 - [Deploying Containerized Go app to Azure Container Instances](#aci)
 * PART 8  - [Deploying Containerized Go app to Azure Dev Spaces](#azds)
 * PART 7  - [Deploying Containerized Go app via Skaffold](#skaffold)
